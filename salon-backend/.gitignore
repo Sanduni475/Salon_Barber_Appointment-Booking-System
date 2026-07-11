@@ -8,8 +8,7 @@ target/
 *.jar
 *.war
 
-# Spring Boot
-HELP.md
+# Spring Boot HELP.md
 
 # Logs
 *.log
