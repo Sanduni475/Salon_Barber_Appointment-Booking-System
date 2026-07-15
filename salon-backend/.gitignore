@@ -20,7 +20,8 @@ application-dev.properties
 
 # IDE - IntelliJ
 .idea
-*.iws
+**/.idea/
+.iws
 *.iml
 *.ipr
 
