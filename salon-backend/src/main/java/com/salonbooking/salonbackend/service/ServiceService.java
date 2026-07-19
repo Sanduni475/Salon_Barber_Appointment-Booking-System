@@ -1,5 +1,6 @@
 package com.salonbooking.salonbackend.service;
 
+import com.salonbooking.salonbackend.exception.ResourceNotFoundException;
 import com.salonbooking.salonbackend.repository.ServiceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class ServiceService {
     }
 
     public com.salonbooking.salonbackend.entity.Service getServiceById(Integer id) {
-        return serviceRepository.findById(id).orElseThrow(() -> new RuntimeException("Service not found"));
+        return serviceRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Service not found"));
     }
 
     public com.salonbooking.salonbackend.entity.Service createService(com.salonbooking.salonbackend.entity.Service service) {

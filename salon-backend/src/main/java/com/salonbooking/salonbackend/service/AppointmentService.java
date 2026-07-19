@@ -4,6 +4,8 @@ import com.salonbooking.salonbackend.dto.AppointmentRequest;
 import com.salonbooking.salonbackend.entity.Appointment;
 import com.salonbooking.salonbackend.enums.AppointmentStatus;
 import com.salonbooking.salonbackend.enums.TimeSlotStatus;
+import com.salonbooking.salonbackend.exception.BadRequestException;
+import com.salonbooking.salonbackend.exception.ResourceNotFoundException;
 import com.salonbooking.salonbackend.repository.AppointmentRepository;
 import com.salonbooking.salonbackend.repository.CustomerRepository;
 import com.salonbooking.salonbackend.repository.ServiceRepository;
@@ -24,13 +26,13 @@ public class AppointmentService {
     @Transactional
     public Appointment bookAppointment(AppointmentRequest request) {
         var customer = customerRepository.findById(request.getCustomerId())
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
 
         var slot = timeSlotRepository.findById(request.getSlotId())
-                .orElseThrow(() -> new RuntimeException("Time slot not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Time slot not found"));
 
         if (slot.getStatus() != TimeSlotStatus.AVAILABLE) {
-            throw new RuntimeException("Time slot is not available");
+            throw new BadRequestException("Time slot is not available");
         }
 
         var services = serviceRepository.findAllById(request.getServiceIds());
@@ -49,6 +51,6 @@ public class AppointmentService {
     }
 
     public Appointment getAppointmentById(Integer id) {
-        return appointmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Appointment not found"));
+        return appointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
     }
 }
