@@ -41,4 +41,3 @@ public class ServiceController {
         return ResponseEntity.noContent().build();
     }
 }
-
