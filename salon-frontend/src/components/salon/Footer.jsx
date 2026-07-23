@@ -45,9 +45,9 @@ export function Footer() {
               Visit
             </h4>
             <p className="mt-3 text-sm leading-6 text-primary-foreground/65">
-              221 Rosewood Lane
+              21/A 1 st Lane
               <br />
-              Suite 4, Downtown
+              Colombo 07
               <br />
               Tue – Sun · 9am – 7pm
             </p>
