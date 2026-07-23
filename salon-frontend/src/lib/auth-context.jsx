@@ -168,8 +168,32 @@ export function AuthProvider({ children }) {
     return formattedAppt;
   }
 
-  function cancelAppointment(id) {
-    // Currently backend doesn't support cancel, we just do it locally for now
+  async function cancelAppointment(id) {
+    if (!user) throw new Error("Please sign in to cancel.");
+
+    const res = await fetch(`${API_BASE}/appointments/${id}/cancel`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${user.token}`
+      },
+    });
+
+    if (!res.ok) {
+      let errorMsg = "Failed to cancel appointment.";
+      const text = await res.text();
+      if (text) {
+        try {
+          const json = JSON.parse(text);
+          errorMsg = json.message || text;
+        } catch (e) {
+          errorMsg = text;
+        }
+      }
+      throw new Error(errorMsg);
+    }
+
+    // On success, update the local state
     const next = appointments.map((a) => (a.id === id ? { ...a, status: "CANCELLED" } : a));
     setAppointments(next);
     write(APPTS_KEY, next);

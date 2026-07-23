@@ -53,4 +53,26 @@ public class AppointmentService {
     public Appointment getAppointmentById(Integer id) {
         return appointmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
     }
+    @Transactional
+    public Appointment cancelAppointment(Integer id, String userEmail) {
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
+        
+        if (!appointment.getCustomer().getEmail().equals(userEmail)) {
+            throw new BadRequestException("You do not have permission to cancel this appointment");
+        }
+        
+        if (appointment.getStatus() == AppointmentStatus.CANCELLED) {
+            throw new BadRequestException("Appointment is already cancelled");
+        }
+        
+        appointment.setStatus(AppointmentStatus.CANCELLED);
+        
+        if (appointment.getSlot() != null) {
+            appointment.getSlot().setStatus(TimeSlotStatus.AVAILABLE);
+            timeSlotRepository.save(appointment.getSlot());
+        }
+        
+        return appointmentRepository.save(appointment);
+    }
 }
