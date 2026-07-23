@@ -6,6 +6,7 @@ import com.salonbooking.salonbackend.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @RestController
 @RequestMapping("/api/appointments")
@@ -22,5 +23,10 @@ public class AppointmentController {
     @GetMapping("/{id}")
     public ResponseEntity<Appointment> getAppointmentById(@PathVariable Integer id) {
         return ResponseEntity.ok(appointmentService.getAppointmentById(id));
+    }
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<Appointment> cancelAppointment(@PathVariable Integer id) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ResponseEntity.ok(appointmentService.cancelAppointment(id, email));
     }
 }
