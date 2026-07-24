@@ -46,7 +46,7 @@ export function AuthProvider({ children }) {
     setAppointments(read(APPTS_KEY, []));
   }, []);
 
-  const API_BASE = "http://localhost:8080/api";
+  const API_BASE = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8080") + "/api";
 
   async function register(data) {
     const res = await fetch(`${API_BASE}/auth/register`, {

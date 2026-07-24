@@ -60,7 +60,7 @@ import { useServices, useStaff, useStaffSlots } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
 import { cn } from "@/lib/utils";
 
-const API_BASE = "http://localhost:8080/api";
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8080") + "/api";
 const appointmentStatuses = ["BOOKED", "COMPLETED", "CANCELLED", "NO_SHOW"];
 const roles = ["CUSTOMER", "STAFF", "ADMIN"];
 

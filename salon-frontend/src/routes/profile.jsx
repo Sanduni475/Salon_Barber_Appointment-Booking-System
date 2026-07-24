@@ -21,7 +21,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/lib/auth-context";
 
-const API_BASE = "http://localhost:8080/api";
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8080") + "/api";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({

@@ -8,7 +8,7 @@ import makeupImg from "@/assets/services/makeup.jpg";
 import kidsImg from "@/assets/services/kids.jpg";
 import blowoutImg from "@/assets/services/blowout.jpg";
 
-const API_BASE = "http://localhost:8080/api";
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8080") + "/api";
 
 const SERVICE_IMAGES = {
   "Signature Haircut": haircutImg,
