@@ -221,7 +221,7 @@ export function Navbar() {
           <p className="text-xs text-muted-foreground">
             Tue — Sun · 9am – 7pm
             <br />
-            221 Rosewood Lane, Downtown
+            21/A 1 st Lane Colombo 07
           </p>
         </div>
       </div>

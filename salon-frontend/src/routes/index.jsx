@@ -112,7 +112,7 @@ function Home() {
               </div>
               <p className="mt-2 font-display text-2xl">9am — 7pm</p>
               <p className="mt-1 text-xs text-muted-foreground">
-                Tue — Sun · Downtown
+                Tue — Sun
               </p>
             </div>
           </div>
